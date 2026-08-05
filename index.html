@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הריטריט שיטעין אותך מחדש - יוגה, נשימה ובריאות</title>
+    
+    <!-- פונטים של גוגל: חלמיש (Heebo) לכותרות ו-Assistant לטקסט רגיל -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <!-- הטמעת Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- הגדרות צבעים אישיות מתוך הלוגו שצורף -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#EAE1D0', /* רקע קרם/פנינה מהלוגו */
+                        'brand-olive': '#4B6B23', /* ירוק זית של העלים והטקסט */
+                        'brand-brown': '#5E4029', /* חום אדמה של השורשים */
+                        'brand-gold': '#C8A951', /* זהב מט לכפתורים מניעים לפעולה */
+                        'brand-gold-hover': '#B39440',
+                        'brand-light': '#F4EFE6' /* צבע קלפי הלו"ז */
+                    },
+                    fontFamily: {
+                        sans: ['Assistant', 'sans-serif'],
+                        heading: ['Heebo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* הגדרות גלילה חלקה ותוספות CSS קטנות */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #EAE1D0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b6b23' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .glass-card {
+            background: rgba(244, 239, 230, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(75, 107, 35, 0.1);
+        }
+
+        /* אנימציית פעימה עדינה לכפתור המכירה */
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .cta-pulse {
+            animation: gentlePulse 2.5s infinite;
+        }
+        
+        /* הבלטה של מילות מפתח */
+        .highlight-text {
+            position: relative;
+            z-index: 1;
+        }
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: -2px;
+            right: -2px;
+            height: 12px;
+            background-color: rgba(200, 169, 81, 0.3); /* צבע זהב חצי שקוף */
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        /* אנימציית ריחוף עדינה לאייקונים למעלה */
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+        .icon-float {
+            animation: floatIcon 3.5s ease-in-out infinite;
+            display: inline-block;
+        }
+        .icon-float-delay {
+            animation: floatIcon 3.5s ease-in-out infinite;
+            animation-delay: 1.5s;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+    <!-- ניווט / לוגו -->
+    <nav class="w-full py-4 text-center sticky top-0 bg-brand-bg/90 backdrop-blur-md z-50 shadow-sm border-b border-brand-olive/10">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- אייקון יוגה שמאלי מרחף -->
+            <div class="text-3xl icon-float-delay opacity-90 hidden sm:block">🧘‍♀️</div>
+            
+            <!-- לוגו וכותרת -->
+            <div class="flex justify-center items-center flex-grow">
+                <!-- מקום ללוגו. שימי לב להחליף את src -->
+                <img src="logo.jpeg" alt="זיוה אורן - קליניקה לריפוי טבעי" class="h-16 object-contain hidden md:block" onerror="this.style.display='none';">
+                <h1 class="text-2xl font-heading font-bold text-brand-olive md:ml-3" id="fallback-logo">זיוה אורן & עטרה</h1>
+            </div>
+
+            <!-- אייקון טבע/בריאות ימני מרחף -->
+            <div class="text-3xl icon-float opacity-90 hidden sm:block">🌿</div>
+        </div>
+    </nav>
+
+    <!-- סקשן פתיחה (Hero) - משודרג שיווקית -->
+    <header class="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden text-center">
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mb-6">
+                <span class="inline-block py-1.5 px-5 rounded-full bg-brand-olive/10 text-brand-olive font-bold text-sm tracking-wide border border-brand-olive/20 shadow-sm">
+                    🌿 זיוה אורן & עטרה מציגות 🌿
+                </span>
+            </div>
+            
+            <h1 class="text-5xl lg:text-6xl md:text-7xl font-heading font-black text-brand-olive mb-4 leading-tight">
+                הריטריט שיטעין אותך מחדש. <br>
+            </h1>
+            <h2 class="text-3xl lg:text-4xl text-brand-brown font-heading font-bold mb-8">
+                ללחוץ על פאוז. <span class="highlight-text">להטעין את הגוף.</span> לחזור לנשום.
+            </h2>
+            
+            <div class="text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto mb-10 leading-relaxed font-normal space-y-4">
+                <p>
+                    מרגישות שהשגרה שואבת מכן את כל האנרגיות? שהעומס היומיומי לא משאיר לכן רגע אחד של שקט אמיתי? מערכת העצבים שלכן צועקת להפסקה.
+                </p>
+                <p class="font-semibold text-brand-olive text-xl">
+                    הצטרפו אלינו ל-2.5 שעות של אסקפיזם טהור.
+                </p>
+                <p>
+                    מסע עמוק של תנועה, נשימה, תזונה וארומתרפיה שנועד לאפס את התודעה, להרגיע את המרוץ הפנימי, ולהחזיר לכן את הכוחות שחסרים לכן. <strong class="font-bold text-brand-brown">מגיע לכן לעצור רגע – בשביל עצמכן.</strong>
+                </p>
+            </div>
+            
+            <!-- אלמנט תאריך בולט שיווקית (Commitment Anchor) -->
+            <div class="my-10 bg-white/70 backdrop-blur-md border border-brand-olive/20 rounded-2xl p-6 md:p-8 inline-flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12 shadow-[0_10px_30px_rgba(75,107,35,0.08)] w-full max-w-2xl mx-auto transform hover:-translate-y-1 transition-transform duration-300">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-brand-olive/10 rounded-full flex items-center justify-center text-3xl shadow-sm border border-brand-olive/10">🗓️</div>
+                    <div class="text-right">
+                        <p class="text-sm text-brand-olive/70 font-bold uppercase tracking-wider mb-1">מתי זה קורה?</p>
+                        <p class="font-heading font-black text-2xl text-brand-brown">יום שני, 24.8.2026</p>
+                    </div>
+                </div>
+                <div class="hidden sm:block w-px h-16 bg-brand-olive/20"></div>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-brand-brown/10 rounded-full flex items-center justify-center text-3xl shadow-sm border border-brand-brown/10">⏰</div>
+                    <div class="text-right">
+                        <p class="text-sm text-brand-olive/70 font-bold uppercase tracking-wider mb-1">שעת התחלה</p>
+                        <p class="font-heading font-black text-2xl text-brand-brown">18:30 בדיוק</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mt-4">
+                <a href="#pricing" class="cta-pulse bg-brand-gold hover:bg-brand-gold-hover text-white font-heading font-bold text-xl py-4 px-10 rounded-full shadow-lg transition-all duration-300 w-full sm:w-auto text-center border-2 border-transparent hover:border-white/50">
+                    כן, אני חייבת פסק זמן לעצמי!
+                </a>
+                <a href="#schedule" class="text-brand-brown font-bold hover:text-brand-olive transition-colors duration-300 py-4 px-6 flex items-center gap-2">
+                    איך זה עובד? <span>&darr;</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- סקשן מי אנחנו -->
+    <section class="py-16 bg-white/40" id="about">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-heading font-bold text-brand-olive">מי אנחנו?</h2>
+                <div class="h-1 w-20 bg-brand-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- זיוה אורן -->
+                <div class="glass-card p-8 rounded-3xl text-center md:text-right shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-brand-olive opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                    <img src="ziva.jpeg" alt="זיוה אורן" class="w-24 h-24 object-cover rounded-full mx-auto md:mx-0 mb-6 border-4 border-brand-olive/20 shadow-md">
+                    
+                    <h3 class="text-2xl font-heading font-bold text-brand-brown mb-1">זיוה אורן</h3>
+                    <p class="text-brand-olive font-semibold mb-4 text-lg">קליניקה לריפוי טבעי</p>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        מומחית ברפואה משלימה, מטפלת ומלווה תהליכי ריפוי והחלמה. מאמינה בחיבור העמוק שבין הגוף והנפש, וביכולת המופלאה של הגוף לרפא את עצמו כשניתנים לו התנאים והכלים הנכונים.
+                    </p>
+                    <div class="text-sm text-brand-olive/80 font-bold flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">דיקור YNSA</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ליווי בריאות</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">נשימה</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ארומתרפיה</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">תטא הילינג</span>
+                    </div>
+                </div>
+
+                <!-- עטרה (המורה ליוגה) -->
+                <div class="glass-card p-8 rounded-3xl text-center md:text-right shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-brand-brown opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                    <img src="atara.jpeg" alt="עטרה סנרטייג" class="w-24 h-24 object-cover rounded-full mx-auto md:mx-0 mb-6 border-4 border-brand-brown/20 shadow-md">
+                    
+                    <h3 class="text-2xl font-heading font-bold text-brand-brown mb-1">עטרה סנרטייג</h3>
+                    <p class="text-brand-olive font-semibold mb-4 text-lg">אמא לפלא רני | מורה ליוגה</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        משנת 2012. כבר למעלה מעשור אני מלווה נשים במסע של חיבור עמוק בין הגוף, הנפש והנשמה. מתוך אמונה שהתנועה היא הרבה מעבר לאימון גופני, אני יוצרת מרחב שמאפשר לעצור, להקשיב פנימה, לנשום, להתחזק ולהתחבר לעצמנו מחדש.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        כמורה ליוגה וכמורה לטכניקת אלכסנדר, אני משלבת ידע, דיוק ורגישות כדי לעזור לכל אישה למצוא תנועה טבעית, יציבה נכונה, נשימה חופשית ושקט פנימי. אני מאמינה שכאשר הגוף נע בהרמוניה, התודעה מתבהרת, הלב נפתח והחיים עצמם הופכים מאוזנים, נינוחים ומלאי נוכחות.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- באנר שריון יומנים (שיווקי) - חדש -->
+    <section class="py-14 relative overflow-hidden bg-brand-olive text-center text-white border-y-4 border-brand-gold">
+        <!-- תבנית רקע עדינה ליצירת עומק -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#C8A951 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-2xl md:text-3xl font-heading font-normal mb-6">רגע לפני שאנחנו צוללות ללו"ז, <br class="md:hidden"><strong class="text-brand-gold font-black">תפתחי יומן ושרייני את הרגע שלך:</strong></h2>
+            
+            <div class="inline-flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 mb-6 shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full max-w-3xl mx-auto">
+                
+                <div class="flex items-center gap-4 text-right">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-4xl shadow-sm border border-white/20">🗓️</div>
+                    <div>
+                        <p class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-1">מתי אנחנו נפגשות?</p>
+                        <p class="font-heading font-black text-3xl md:text-4xl text-white drop-shadow-md">יום שני, 24.8</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block w-px h-20 bg-brand-gold/40"></div>
+                
+                <div class="flex items-center gap-4 text-right">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-4xl shadow-sm border border-white/20">⏰</div>
+                    <div>
+                        <p class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-1">באיזו שעה מתחילות?</p>
+                        <p class="font-heading font-black text-3xl md:text-4xl text-white drop-shadow-md">18:30 בדיוק</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <p class="text-lg md:text-xl font-light opacity-95 max-w-2xl mx-auto mt-2">
+                זה הערב שלך להתנתק. <a href="#pricing" class="font-bold text-brand-gold hover:text-white transition-colors underline decoration-2 underline-offset-4 ml-1">לחצי כאן לשריון מקום</a> (מספר המקומות מוגבל).
+            </p>
+        </div>
+    </section>
+
+    <!-- סקשן לו"ז - כרטיסיות -->
+    <section class="py-20" id="schedule">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-heading font-bold text-brand-olive mb-4">מה מחכה לכן בריטריט?</h2>
+                <p class="text-lg text-gray-700 max-w-2xl mx-auto font-medium">
+                    שעתיים וחצי מדויקות שתוכננו בקפידה. כל שלב נועד להוריד הילוך במערכת העצבים ולהטעין אתכן באנרגיה חדשה.
+                </p>
+            </div>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-olive before:via-brand-olive/50 before:to-transparent">
+                
+                <!-- כרטיסיה 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-olive text-brand-light shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xl ring-4 ring-brand-bg">
+                        ☕
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 rounded-2xl shadow-sm border-r-4 border-r-brand-olive md:border-r-0 md:group-even:border-r-4 md:group-odd:border-l-4 md:group-odd:border-l-brand-olive md:group-even:border-r-brand-olive transition-transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-heading font-bold text-xl text-brand-brown">WELCOME - נוחתים ברגע הזה</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3 font-medium">מתחילים להאט את הקצב ולהשאיר את העומס מחוץ לדלת.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> קבלת פנים נעימה</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> חליטת צמחים טבעית קרה</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> מוזיקה מרגיעה ואווירה עוטפת</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- כרטיסיה 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-olive text-brand-light shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xl ring-4 ring-brand-bg">
+                        🧘‍♀️
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 rounded-2xl shadow-sm border-r-4 border-r-brand-olive md:border-r-0 md:group-even:border-r-4 md:group-odd:border-l-4 md:group-odd:border-l-brand-olive md:group-even:border-r-brand-olive transition-transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-heading font-bold text-xl text-brand-brown">MOVE - Flow & Release</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3 font-medium">להניע את הגוף, לשחרר מתחים ולהכניס את מערכת העצבים למצב רוגע.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> תרגול יוגה עדין (מתאים לכל הרמות)</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> תנועה מודעת</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> מדיטציה בתנועה</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- כרטיסיה 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-olive text-brand-light shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xl ring-4 ring-brand-bg">
+                        💚
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 rounded-2xl shadow-sm border-r-4 border-r-brand-olive md:border-r-0 md:group-even:border-r-4 md:group-odd:border-l-4 md:group-odd:border-l-brand-olive md:group-even:border-r-brand-olive transition-transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-heading font-bold text-xl text-brand-brown">MIND RESET</h3>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-2 mt-3 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> אפרמציות (הצהרות חיוביות) לחיזוק דימוי עצמי, הודיה, תודעת שפע</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> תרגול קבלה עצמית והשקטת התודעה</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- כרטיסיה 4 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-olive text-brand-light shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xl ring-4 ring-brand-bg">
+                        🥗
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 rounded-2xl shadow-sm border-r-4 border-r-brand-olive md:border-r-0 md:group-even:border-r-4 md:group-odd:border-l-4 md:group-odd:border-l-brand-olive md:group-even:border-r-brand-olive transition-transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-heading font-bold text-xl text-brand-brown">NOURISH - להזין את הגוף</h3>
+                        </div>
+                        <p class="text-gray-700 text-sm mb-3 font-medium">ארוחה טבעונית מזינה בליווי הסברים על הרגלים לשמירת אנרגיה, איזון הורמונלי, מטאבוליזם תקין.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-medium">
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> איך בונים צלחת מאוזנת?</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> מה תומך באנרגיה יציבה לאורך היום?</li>
+                            <li class="flex items-center gap-2"><span class="text-brand-gold">✔️</span> כללי אכילה לבריאות מיטבית</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- כרטיסיה 5 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-brand-olive text-brand-light shadow-lg shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xl ring-4 ring-brand-bg">
+                        🗣️
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] glass-card p-6 rounded-2xl shadow-sm border-r-4 border-r-brand-gold md:border-r-0 md:group-even:border-r-4 md:group-odd:border-l-4 md:group-odd:border-l-brand-gold md:group-even:border-r-brand-gold transition-transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-heading font-bold text-xl text-brand-brown">RECHARGE TALK</h3>
+                        </div>
+                        <p class="text-gray-800 text-sm font-bold mb-2">מה באמת שואב לך את האנרגיה בכל יום?</p>
+                        <p class="text-gray-600 text-sm mb-4 font-medium">הרצאה מרתקת שמסבירה למה הגוף מתקשה להיטען מחדש. נבין איך מערכת העצבים משפיעה על איכות השינה, איזון הורמונלי, חילוף חומרים, קוגניציה ועוד. בה נקבל כלים פרקטיים ליישום מיידי:</p>
+                        <div class="grid grid-cols-2 gap-3 text-sm text-brand-olive font-bold bg-white/50 p-3 rounded-lg">
+                            <span class="flex items-center gap-1">🌿 ארומתרפיה</span>
+                            <span class="flex items-center gap-1">🫁 נשימה נכונה</span>
+                            <span class="flex items-center gap-1">🌞 שעון ביולוגי</span>
+                            <span class="flex items-center gap-1">😴 התאוששות ושינה</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- מתנה / Take home -->
+    <section class="py-12 bg-brand-olive text-brand-light text-center px-4 shadow-inner">
+        <div class="container mx-auto max-w-3xl">
+            <div class="text-5xl mb-4 transform hover:scale-110 transition-transform duration-300">🎁</div>
+            <h2 class="text-2xl lg:text-3xl font-heading font-bold mb-4">TAKE HOME - המתנה שממשיכה איתכן הביתה</h2>
+            <p class="text-lg opacity-90 font-medium">
+                החוויה המדהימה הזו לא נגמרת כאן. כל משתתפת תקבל מאיתנו במתנה סל מתנות וכלים מעשיים שיאפשרו ליישם כבר מהיום הראשון בבית.
+            </p>
+        </div>
+    </section>
+
+    <!-- סקשן מחיר והרשמה (מניע לפעולה - דחיפות) -->
+    <section class="py-24" id="pricing">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <h2 class="text-3xl lg:text-5xl font-heading font-bold text-brand-brown mb-6">הגיע הזמן להשקיע בעצמך.</h2>
+            <p class="text-xl text-gray-700 mb-12 font-medium max-w-2xl mx-auto">
+                <span class="font-bold text-red-600 block mb-2 text-2xl">שימו לב: מספר המקומות מוגבל בהחלט.</span>
+                כדי לשמור על אינטימיות, מרחב אישי ויחס חם עבור כל משתתפת. שריינו את מקומכן עכשיו.
+            </p>
+
+            <div class="glass-card max-w-md mx-auto p-10 rounded-3xl shadow-2xl relative border-t-8 border-brand-gold overflow-hidden">
+                <!-- תגית מבצע -->
+                <div class="absolute top-6 right-[-45px] bg-red-600 text-white text-sm font-bold py-1.5 px-12 transform rotate-45 shadow-md tracking-wider">
+                    מחיר השקה!
+                </div>
+
+                <h3 class="text-2xl font-heading text-brand-olive font-black mb-1">כרטיס כניסה לריטריט</h3>
+                
+                <!-- ספח כרטיס יוקרתי שמאשר את המועד במעמד הקנייה -->
+                <div class="bg-brand-bg rounded-xl p-4 my-5 border border-brand-olive/15 flex justify-center items-center gap-6 shadow-inner">
+                    <span class="flex items-center gap-2 font-black text-brand-brown text-lg"><span class="text-2xl">🗓️</span> 24.8.2026</span>
+                    <span class="w-1.5 h-1.5 bg-brand-olive/40 rounded-full"></span>
+                    <span class="flex items-center gap-2 font-black text-brand-brown text-lg"><span class="text-2xl">⏰</span> 18:30</span>
+                </div>
+                
+                <div class="flex justify-center items-end gap-3 my-6">
+                    <span class="text-3xl text-gray-400 line-through decoration-red-500/60 decoration-4">₪399</span>
+                    <span class="text-7xl font-heading font-black text-brand-brown leading-none">₪299</span>
+                </div>
+                
+                <p class="text-brand-olive font-bold mb-8 bg-brand-olive/10 py-2 px-4 rounded-lg inline-block">
+                    המחיר המיוחד תקף לחמשת הנרשמות הראשונות בלבד!
+                </p>
+
+                <!-- כפתור רכישה - פותח טופס הרשמה ואז מעביר לתשלום בביט -->
+                <button type="button" onclick="openRegModal()" class="block w-full bg-brand-gold hover:bg-brand-gold-hover text-white text-xl font-heading font-bold py-5 rounded-xl shadow-[0_10px_20px_rgba(200,169,81,0.3)] transition-all cta-pulse hover:shadow-[0_10px_25px_rgba(200,169,81,0.5)] cursor-pointer">
+                    שריון מקום ותשלום מיידי
+                </button>
+                
+                <p class="text-sm text-gray-500 mt-5 flex items-center justify-center gap-1 font-medium">
+                    🔒 תשלום מאובטח ושמירת מקום ודאית
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- סקשן השארת פרטים (לידים) -->
+    <section class="py-16 bg-white/60 border-t border-brand-olive/10" id="contact">
+        <div class="container mx-auto px-4 max-w-3xl text-center">
+            <h2 class="text-2xl lg:text-3xl font-heading font-bold text-brand-olive mb-4">עדיין מתלבטת? בואי נדבר.</h2>
+            <p class="text-gray-700 mb-8 font-medium">
+                השאירי פרטים ונחזור אלייך בהקדם עם כל התשובות. המקום מתמלא מהר, אז אל תחכי לדקה ה-90.
+            </p>
+
+            <form id="lead-form" class="max-w-md mx-auto space-y-4">
+                <div>
+                    <input type="text" id="lead-name" placeholder="שם מלא" required class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-olive focus:border-transparent bg-white shadow-sm font-medium">
+                </div>
+                <div>
+                    <input type="tel" id="lead-phone" placeholder="מספר טלפון" required pattern="0[0-9]{8,9}" title="מספר טלפון ישראלי, לדוגמה: 0501234567" class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-olive focus:border-transparent bg-white shadow-sm font-medium">
+                </div>
+                <button type="submit" id="lead-submit-btn" class="w-full bg-brand-brown hover:bg-brand-olive text-white text-lg font-bold py-4 rounded-xl transition-colors shadow-md">
+                    דברו איתי, אני רוצה לשמוע עוד
+                </button>
+            </form>
+            <p id="lead-success" class="hidden max-w-md mx-auto mt-4 bg-brand-olive/10 text-brand-olive font-bold py-4 px-6 rounded-xl">
+                💚 הפרטים התקבלו! נחזור אלייך בהקדם.
+            </p>
+        </div>
+    </section>
+
+    <!-- מודאל הרשמה ותשלום בביט -->
+    <div id="reg-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <!-- רקע כהה -->
+        <div class="absolute inset-0 bg-brand-brown/60 backdrop-blur-sm" onclick="closeRegModal()"></div>
+
+        <div class="relative bg-brand-light rounded-3xl shadow-2xl max-w-md w-full p-8 border-t-8 border-brand-gold overflow-hidden">
+            <!-- כפתור סגירה -->
+            <button type="button" onclick="closeRegModal()" aria-label="סגירה" class="absolute top-4 left-4 w-9 h-9 rounded-full bg-brand-olive/10 hover:bg-brand-olive/20 text-brand-brown text-xl font-bold flex items-center justify-center transition-colors">
+                &times;
+            </button>
+
+            <!-- שלב 1: טופס פרטים -->
+            <div id="reg-step-form">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-3">🌿</div>
+                    <h3 class="text-2xl font-heading font-black text-brand-olive mb-2">עוד רגע את בפנים!</h3>
+                    <p class="text-gray-700 font-medium text-sm">מלאי את הפרטים, ומיד תקבלי קישור לתשלום מאובטח בביט.</p>
+                </div>
+
+                <form id="reg-form" class="space-y-4">
+                    <div>
+                        <input type="text" name="name" id="reg-name" placeholder="שם מלא" required class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-olive focus:border-transparent bg-white shadow-sm font-medium">
+                    </div>
+                    <div>
+                        <input type="tel" name="phone" id="reg-phone" placeholder="מספר טלפון" required pattern="0[0-9]{8,9}" title="מספר טלפון ישראלי, לדוגמה: 0501234567" class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-olive focus:border-transparent bg-white shadow-sm font-medium">
+                    </div>
+                    <div>
+                        <input type="email" name="email" id="reg-email" placeholder="אימייל (לא חובה)" class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-olive focus:border-transparent bg-white shadow-sm font-medium">
+                    </div>
+                    <button type="submit" id="reg-submit-btn" class="w-full bg-brand-gold hover:bg-brand-gold-hover text-white text-xl font-heading font-bold py-4 rounded-xl shadow-md transition-all">
+                        המשך לתשלום בביט &larr;
+                    </button>
+                    <p class="text-xs text-gray-500 text-center font-medium">🔒 הפרטים ישמשו רק לצורך ההרשמה לריטריט</p>
+                </form>
+            </div>
+
+            <!-- שלב 2: קישור לתשלום -->
+            <div id="reg-step-pay" class="hidden text-center">
+                <div class="text-5xl mb-4">💚</div>
+                <h3 class="text-2xl font-heading font-black text-brand-olive mb-3">הפרטים נקלטו בהצלחה!</h3>
+                <p class="text-gray-700 font-medium mb-2">
+                    נשאר רק צעד אחד קטן: תשלום של <strong class="text-brand-brown">₪299</strong> בביט.
+                </p>
+                <p class="text-sm text-gray-600 font-medium mb-6">
+                    המקום שלך יישמר סופית לאחר אישור התשלום 🙏
+                </p>
+                <a id="bit-pay-link" href="#" target="_blank" rel="noopener" class="block w-full bg-[#00A3E0] hover:bg-[#0090c7] text-white text-xl font-heading font-bold py-5 rounded-xl shadow-lg transition-all cta-pulse">
+                    💳 לתשלום בביט - לחצי כאן
+                </a>
+                <p class="text-xs text-gray-500 mt-4 font-medium">
+                    לא הצלחת לשלם? דברי איתנו ונעזור לך להשלים את ההרשמה.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ============================================================
+           הגדרות - יש לעדכן את שני הערכים האלה:
+           1. BIT_PAYMENT_LINK - קישור בקשת התשלום מאפליקציית ביט
+              (בביט: שליחת בקשת תשלום -> שיתוף קישור)
+           2. NOTIFY_EMAIL - המייל שאליו יגיעו פרטי הנרשמות
+              (בשליחה הראשונה FormSubmit ישלח מייל אימות - יש לאשר אותו)
+           ============================================================ */
+        const BIT_PAYMENT_LINK = "https://www.bitpay.co.il/app/share-info?i=213130686045_19o1wEv2";
+        const NOTIFY_EMAIL = "Zoren2505@gmail.com";
+
+        function openRegModal() {
+            const modal = document.getElementById('reg-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegModal() {
+            const modal = document.getElementById('reg-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeRegModal();
+        });
+
+        document.getElementById('reg-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('reg-name').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+
+            const submitBtn = document.getElementById('reg-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'שולח...';
+
+            // שליחת הפרטים למייל ברקע (גם אם תיכשל - הגולשת תקבל את קישור התשלום)
+            fetch('https://formsubmit.co/ajax/' + NOTIFY_EMAIL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: 'נרשמת חדשה לריטריט! ' + name,
+                    'שם מלא': name,
+                    'טלפון': phone,
+                    'אימייל': email || 'לא הוזן'
+                })
+            }).catch(function(err) {
+                console.error('שליחת הפרטים למייל נכשלה:', err);
+            });
+
+            // מעבר לשלב התשלום
+            document.getElementById('bit-pay-link').href = BIT_PAYMENT_LINK;
+            document.getElementById('reg-step-form').classList.add('hidden');
+            document.getElementById('reg-step-pay').classList.remove('hidden');
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'המשך לתשלום בביט &larr;';
+        });
+
+        // טופס "עדיין מתלבטת" - שליחת ליד למייל
+        document.getElementById('lead-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('lead-name').value.trim();
+            const phone = document.getElementById('lead-phone').value.trim();
+
+            const submitBtn = document.getElementById('lead-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'שולח...';
+
+            fetch('https://formsubmit.co/ajax/' + NOTIFY_EMAIL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: 'ליד חדש מהאתר (מתלבטת): ' + name,
+                    'שם מלא': name,
+                    'טלפון': phone,
+                    'סוג פנייה': 'רוצה לשמוע עוד לפני הרשמה'
+                })
+            }).catch(function(err) {
+                console.error('שליחת הליד למייל נכשלה:', err);
+            }).finally(function() {
+                document.getElementById('lead-form').classList.add('hidden');
+                document.getElementById('lead-success').classList.remove('hidden');
+            });
+        });
+    </script>
+
+    <!-- פוטר -->
+    <footer class="py-8 bg-brand-bg border-t border-brand-brown/10 text-center text-sm text-gray-600 font-medium">
+        <div class="container mx-auto px-4">
+            <p>&copy; כל הזכויות שמורות לזיוה אורן & עטרה, 2026.</p>
+            <p class="mt-2 text-xs opacity-70">
+                * ט.ל.ח | התוכנית נתונה לשינויים | מדיניות ביטולים תמסר לנרשמים.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

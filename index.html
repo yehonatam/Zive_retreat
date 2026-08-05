@@ -98,19 +98,15 @@
 
     <!-- ניווט / לוגו -->
     <nav class="w-full py-4 text-center sticky top-0 bg-brand-bg/90 backdrop-blur-md z-50 shadow-sm border-b border-brand-olive/10">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <!-- אייקון יוגה שמאלי מרחף -->
-            <div class="text-3xl icon-float-delay opacity-90 hidden sm:block">🧘‍♀️</div>
-            
-            <!-- לוגו וכותרת -->
-            <div class="flex justify-center items-center flex-grow">
-                <!-- מקום ללוגו. שימי לב להחליף את src -->
-                <img src="logo.jpeg" alt="זיוה אורן - קליניקה לריפוי טבעי" class="h-16 object-contain hidden md:block" onerror="this.style.display='none';">
-                <h1 class="text-2xl font-heading font-bold text-brand-olive md:ml-3" id="fallback-logo">זיוה אורן & עטרה</h1>
-            </div>
+        <div class="container mx-auto px-4 flex justify-center items-center gap-5">
+            <!-- לוגו -->
+            <img src="logo.jpeg" alt="זיוה אורן - קליניקה לריפוי טבעי" class="h-14 w-14 object-cover rounded-full border-2 border-brand-olive/25 shadow-sm hidden sm:block" onerror="this.style.display='none';">
 
-            <!-- אייקון טבע/בריאות ימני מרחף -->
-            <div class="text-3xl icon-float opacity-90 hidden sm:block">🌿</div>
+            <!-- כותרת והזמנה -->
+            <div class="text-center sm:text-right">
+                <h1 class="text-xl md:text-2xl font-heading font-black text-brand-olive leading-tight">זיוה אורן & עטרה</h1>
+                <p class="text-sm md:text-base text-brand-brown font-semibold mt-0.5">מזמינות אתכן לעצור, לנשום ולהיטען מחדש 🌿</p>
+            </div>
         </div>
     </nav>
 
@@ -144,7 +140,7 @@
             </div>
             
             <!-- אלמנט תאריך בולט שיווקית (Commitment Anchor) -->
-            <div class="my-10 bg-white/70 backdrop-blur-md border border-brand-olive/20 rounded-2xl p-6 md:p-8 inline-flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12 shadow-[0_10px_30px_rgba(75,107,35,0.08)] w-full max-w-2xl mx-auto transform hover:-translate-y-1 transition-transform duration-300">
+            <div class="my-10 bg-white/70 backdrop-blur-md border border-brand-olive/20 rounded-2xl p-6 md:p-8 inline-flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8 shadow-[0_10px_30px_rgba(75,107,35,0.08)] w-full max-w-3xl mx-auto transform hover:-translate-y-1 transition-transform duration-300">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 bg-brand-olive/10 rounded-full flex items-center justify-center text-3xl shadow-sm border border-brand-olive/10">🗓️</div>
                     <div class="text-right">
@@ -158,6 +154,14 @@
                     <div class="text-right">
                         <p class="text-sm text-brand-olive/70 font-bold uppercase tracking-wider mb-1">שעת התחלה</p>
                         <p class="font-heading font-black text-2xl text-brand-brown">18:30 בדיוק</p>
+                    </div>
+                </div>
+                <div class="hidden sm:block w-px h-16 bg-brand-olive/20"></div>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-brand-gold/10 rounded-full flex items-center justify-center text-3xl shadow-sm border border-brand-gold/20">📍</div>
+                    <div class="text-right">
+                        <p class="text-sm text-brand-olive/70 font-bold uppercase tracking-wider mb-1">איפה נפגשות?</p>
+                        <p class="font-heading font-black text-2xl text-brand-brown">מושב נהורה</p>
                     </div>
                 </div>
             </div>
@@ -188,16 +192,23 @@
                     <img src="ziva.jpeg" alt="זיוה אורן" class="w-24 h-24 object-cover rounded-full mx-auto md:mx-0 mb-6 border-4 border-brand-olive/20 shadow-md">
                     
                     <h3 class="text-2xl font-heading font-bold text-brand-brown mb-1">זיוה אורן</h3>
-                    <p class="text-brand-olive font-semibold mb-4 text-lg">קליניקה לריפוי טבעי</p>
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        מומחית ברפואה משלימה, מטפלת ומלווה תהליכי ריפוי והחלמה. מאמינה בחיבור העמוק שבין הגוף והנפש, וביכולת המופלאה של הגוף לרפא את עצמו כשניתנים לו התנאים והכלים הנכונים.
+                    <p class="text-brand-olive font-semibold mb-4 text-lg">יועצת בכירה לבריאות טבעית | מטפלת בגישה אינטגרטיבית</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        מעל 7 שנות ניסיון בליווי אנשים בדרך לבריאות טובה יותר, מתוך הסתכלות על האדם כמכלול גוף, נפש ואורח חיים.
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        אני מאמינה שלגוף יש יכולת טבעית לשאוף לאיזון ולהחלמה כאשר מעניקים לו את התנאים הנכונים. לכן, אני משלבת ידע מעולם הבריאות הטבעית עם מגוון שיטות טיפול משלימות, במטרה לזהות את שורש האתגר, להפחית עומסים על הגוף ולסייע ביצירת שינוי עמוק, בריא ויציב לאורך זמן.
+                    </p>
+                    <p class="text-sm font-heading font-bold text-brand-brown mb-3">תחומי התמחות:</p>
                     <div class="text-sm text-brand-olive/80 font-bold flex flex-wrap justify-center md:justify-start gap-2">
-                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">דיקור YNSA</span>
-                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ליווי בריאות</span>
-                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">נשימה</span>
-                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ארומתרפיה</span>
-                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">תטא הילינג</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ייעוץ וליווי לבריאות טבעית</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">דיקור קרקפת YNSA</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">ארומתרפיה קלינית</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">AromaTouch Technique</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">נשימה טיפולית</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">תטא הילינג (ThetaHealing)</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">הנחיית קבוצות לניקוי רעלים ושינוי אורח חיים</span>
+                        <span class="bg-brand-olive/10 px-3 py-1.5 rounded-md">רפואת הנפש בדרך היהדות - שיטת ״עין הבדולח״</span>
                     </div>
                 </div>
 
@@ -227,8 +238,8 @@
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="text-2xl md:text-3xl font-heading font-normal mb-6">רגע לפני שאנחנו צוללות ללו"ז, <br class="md:hidden"><strong class="text-brand-gold font-black">תפתחי יומן ושרייני את הרגע שלך:</strong></h2>
             
-            <div class="inline-flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 mb-6 shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full max-w-3xl mx-auto">
-                
+            <div class="inline-flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 mb-6 shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full max-w-4xl mx-auto">
+
                 <div class="flex items-center gap-4 text-right">
                     <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-4xl shadow-sm border border-white/20">🗓️</div>
                     <div>
@@ -236,14 +247,24 @@
                         <p class="font-heading font-black text-3xl md:text-4xl text-white drop-shadow-md">יום שני, 24.8</p>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:block w-px h-20 bg-brand-gold/40"></div>
-                
+
                 <div class="flex items-center gap-4 text-right">
                     <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-4xl shadow-sm border border-white/20">⏰</div>
                     <div>
                         <p class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-1">באיזו שעה מתחילות?</p>
                         <p class="font-heading font-black text-3xl md:text-4xl text-white drop-shadow-md">18:30 בדיוק</p>
+                    </div>
+                </div>
+
+                <div class="hidden md:block w-px h-20 bg-brand-gold/40"></div>
+
+                <div class="flex items-center gap-4 text-right">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-4xl shadow-sm border border-white/20">📍</div>
+                    <div>
+                        <p class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-1">איפה זה קורה?</p>
+                        <p class="font-heading font-black text-3xl md:text-4xl text-white drop-shadow-md">מושב נהורה</p>
                     </div>
                 </div>
 
@@ -390,10 +411,12 @@
                 <h3 class="text-2xl font-heading text-brand-olive font-black mb-1">כרטיס כניסה לריטריט</h3>
                 
                 <!-- ספח כרטיס יוקרתי שמאשר את המועד במעמד הקנייה -->
-                <div class="bg-brand-bg rounded-xl p-4 my-5 border border-brand-olive/15 flex justify-center items-center gap-6 shadow-inner">
+                <div class="bg-brand-bg rounded-xl p-4 my-5 border border-brand-olive/15 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 shadow-inner">
                     <span class="flex items-center gap-2 font-black text-brand-brown text-lg"><span class="text-2xl">🗓️</span> 24.8.2026</span>
                     <span class="w-1.5 h-1.5 bg-brand-olive/40 rounded-full"></span>
                     <span class="flex items-center gap-2 font-black text-brand-brown text-lg"><span class="text-2xl">⏰</span> 18:30</span>
+                    <span class="w-1.5 h-1.5 bg-brand-olive/40 rounded-full"></span>
+                    <span class="flex items-center gap-2 font-black text-brand-brown text-lg"><span class="text-2xl">📍</span> מושב נהורה</span>
                 </div>
                 
                 <div class="flex justify-center items-end gap-3 my-6">
